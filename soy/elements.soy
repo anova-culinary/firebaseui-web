@@ -206,7 +206,7 @@
   {call .submitButton}
     {param label kind="text"}
       {msg desc="The submit button in the sign-in form."}
-        Sign In
+        Log In
       {/msg}
     {/param}
   {/call}
@@ -303,24 +303,29 @@
  */
 {template .password}
   {@param? current: bool} /** Whether to show "Current password" or "Password" label. */
-  <div class="firebaseui-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <label class="mdl-textfield__label firebaseui-label" for="password">
-      {if $current}
-        {msg desc="Label of a password field."}Current password{/msg}
-      {else}
-        {msg desc="Label of a password field."}Password{/msg}
-      {/if}
-    </label>
-    <input
-        type="password"
-        name="password"
-        autocomplete="current-password"
-        class="mdl-textfield__input firebaseui-input firebaseui-id-password">
-  </div>
-  <div class="firebaseui-error-wrapper">
-    <p class="firebaseui-error firebaseui-text-input-error firebaseui-hidden{sp}
-              firebaseui-id-password-error">
-    </p>
+  <div class="firebaseui-password-component">
+    <div class="firebaseui-textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <label class="mdl-textfield__label firebaseui-label" for="password">
+        {if $current}
+          {msg desc="Label of a password field."}Current password{/msg}
+        {else}
+          {msg desc="Label of a password field."}Password{/msg}
+        {/if}
+      </label>
+      <input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          class="mdl-textfield__input firebaseui-input firebaseui-id-password">
+    </div>
+    <a href="javascript:void(0)" class="firebaseui-input-floating-button{sp}
+          firebaseui-id-password-toggle firebaseui-input-toggle-on firebaseui-input-toggle-blur">
+    </a>
+    <div class="firebaseui-error-wrapper">
+      <p class="firebaseui-error firebaseui-text-input-error firebaseui-hidden{sp}
+                firebaseui-id-password-error">
+      </p>
+    </div>
   </div>
 {/template}
 
@@ -330,7 +335,7 @@
  */
 {template .passwordRecoveryButton}
   <a class="firebaseui-link firebaseui-id-secondary-link" href="javascript:void(0)">
-    {msg desc="Label of the password recovery link"}Trouble signing in?{/msg}
+    {msg desc="Label of the password recovery link"}Forgot your password?{/msg}
   </a>
 {/template}
 
@@ -345,6 +350,16 @@
   </button>
 {/template}
 
+
+/**
+ * Renders the back button.
+ */
+{template .backButton}
+  <button class="firebaseui-id-secondary-link firebaseui-button mdl-button mdl-js-button{sp}
+                 mdl-button--primary">
+    {msg desc="Link to go back in the current flow."}Back{/msg}
+  </button>
+{/template}
 
 /**
  * Renders a notice to the user about SMS rates.
@@ -418,7 +433,7 @@
   {if $ij.tosCallback and $ij.privacyPolicyCallback}
     <p class="firebaseui-tos firebaseui-tospp-full-message">
       {msg desc="The terms of service and privacy policy for the first page."}
-        By continuing, you are indicating that you accept our{sp}
+        By continuing, you are indicating that you accept our<br>
         <a href="javascript:void(0)" class="firebaseui-link firebaseui-tos-link" target="_blank">
           Terms of Service
         </a> and{sp}

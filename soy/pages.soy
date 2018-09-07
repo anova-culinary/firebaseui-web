@@ -27,8 +27,11 @@
   <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-sign-in">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
+        <a href="https://anovaculinary.com">
+          <i class="fa fa-anova" aria-hidden="true"></i>
+        </a>
         <h1 class="firebaseui-title">
-          {msg desc="Header of the email/password sign-in page."}Sign in with email{/msg}
+          {msg desc="Header of the email/password sign-in page."}Continue with email{/msg}
         </h1>
       </div>
       <div class="firebaseui-card-content">
@@ -39,7 +42,7 @@
       <div class="firebaseui-card-actions">
         <div class="firebaseui-form-actions">
           {if $displayCancelButton}
-            {call firebaseui.auth.soy2.element.cancelButton /}
+            {call firebaseui.auth.soy2.element.backButton /}
           {/if}
           {call firebaseui.auth.soy2.element.submitButton /}
         </div>
@@ -65,7 +68,10 @@
   <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-sign-in">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Sign in{/msg}</h1>
+        <a href="https://anovaculinary.com">
+          <i class="fa fa-anova" aria-hidden="true"></i>
+        </a>
+        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
       </div>
       <div class="firebaseui-card-content">
         {call firebaseui.auth.soy2.element.email data="all" /}
@@ -241,7 +247,7 @@
   <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-linking">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Sign in{/msg}</h1>
+        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
       </div>
       <div class="firebaseui-card-content">
         <h2 class="firebaseui-subtitle">
@@ -284,7 +290,7 @@
   <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-federated-linking">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Sign in{/msg}</h1>
+        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
       </div>
       <div class="firebaseui-card-content">
         <h2 class="firebaseui-subtitle">
@@ -295,7 +301,7 @@
         </h2>
         <p class="firebaseui-text">
           {msg desc="Message that reminds the user the previous sign-in status."}
-            You’ve already used <strong>{$email}</strong>. Sign in with {$idpDisplayName} to
+            You’ve already used <strong>{$email}</strong>. Log in with {$idpDisplayName} to
             continue.
           {/msg}
         </p>
@@ -305,8 +311,8 @@
           {call firebaseui.auth.soy2.element.submitButton}
             {param label kind="text"}
               {msg desc="Label of a button that signs in a user with a federated identity provider
-                  (e.g. Sign in with Google, Sign in with Facebook)."}
-                Sign in with {$idpDisplayName}
+                  (e.g. Log in with Google, Log in with Facebook)."}
+                Log in with {$idpDisplayName}
               {/msg}
             {/param}
           {/call}
@@ -595,7 +601,7 @@
   <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-email-mismatch">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Sign in{/msg}</h1>
+        <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
       </div>
       <div class="firebaseui-card-content">
         <h2 class="firebaseui-subtitle">

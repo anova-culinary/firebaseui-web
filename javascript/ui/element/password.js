@@ -44,6 +44,57 @@ element.password.getPasswordErrorElement = function() {
   return this.getElementByClass('firebaseui-id-password-error');
 };
 
+/**
+ * @return {Element} The toggle button to show or hide the password text.
+ * @this {goog.ui.Component}
+ */
+element.password.getPasswordToggleElement = function () {
+  return this.getElementByClass('firebaseui-id-password-toggle');
+};
+
+/** @private {string} The CSS class for the "visiblility on" eye icon. */
+var CLASS_TOGGLE_ON_ = 'firebaseui-input-toggle-on';
+
+
+/** @private {string} The CSS class for the "visiblility off" eye icon. */
+var CLASS_TOGGLE_OFF_ = 'firebaseui-input-toggle-off';
+
+
+/**
+ * @private {string} The CSS class for the eye icon when the input is
+ *     focused.
+ */
+var CLASS_TOGGLE_FOCUS_ = 'firebaseui-input-toggle-focus';
+
+
+/**
+ * @private {string} The CSS class for the eye icon when the input is not
+ *     focused.
+ */
+var CLASS_TOGGLE_BLUR_ = 'firebaseui-input-toggle-blur';
+
+
+/**
+ * Toggles the visibility of the password text.
+ * @this {goog.ui.Component}
+ */
+element.password.togglePasswordVisible = function () {
+  this.isPasswordVisible_ = !this.isPasswordVisible_;
+
+  var toggleElement = element.password.getPasswordToggleElement.call(this);
+  var passwordElement = element.password.getPasswordElement.call(this);
+
+  if (this.isPasswordVisible_) {
+    passwordElement['type'] = 'text';
+    goog.dom.classlist.add(toggleElement, CLASS_TOGGLE_OFF_);
+    goog.dom.classlist.remove(toggleElement, CLASS_TOGGLE_ON_);
+  } else {
+    passwordElement['type'] = 'password';
+    goog.dom.classlist.add(toggleElement, CLASS_TOGGLE_ON_);
+    goog.dom.classlist.remove(toggleElement, CLASS_TOGGLE_OFF_);
+  }
+  passwordElement.focus();
+};
 
 /**
  * Validates the field and shows/clears the error message if necessary.
@@ -68,19 +119,65 @@ element.password.validate_ = function(passwordElement, errorElement) {
 
 
 /**
+ * Enables or disables the log in button based on email and password fields.
+ * @this {goog.ui.Component}
+ */
+element.password.updateSubmitButton = function () {
+  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email");
+  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password");
+  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit");
+
+  if (inputEmail != null && inputPassword != null && submitButton != null) {
+    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
+      submitButton.removeAttribute("disabled");
+    } else {
+      submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+
+/**
  * Initializes the password element.
  * @this {goog.ui.Component}
  */
 element.password.initPasswordElement = function() {
+  this.isPasswordVisible_ = false;
+
   var passwordElement = element.password.getPasswordElement.call(this);
+  passwordElement['type'] = 'password';
+
   var errorElement = element.password.getPasswordErrorElement.call(this);
+
+  element.password.updateSubmitButton();
+
   element.listenForInputEvent(this, passwordElement, function(e) {
     // Clear but not show error on-the-fly.
     if (element.isShown(errorElement)) {
       element.setValid(passwordElement, true);
       element.hide(errorElement);
     }
+
+    element.password.updateSubmitButton();
   });
+
+  var toggleElement = element.password.getPasswordToggleElement.call(this);
+  goog.dom.classlist.add(toggleElement, CLASS_TOGGLE_ON_);
+  goog.dom.classlist.remove(toggleElement, CLASS_TOGGLE_OFF_);
+
+  element.listenForFocusInEvent(this, passwordElement, function (e) {
+    goog.dom.classlist.add(toggleElement, CLASS_TOGGLE_FOCUS_);
+    goog.dom.classlist.remove(toggleElement, CLASS_TOGGLE_BLUR_);
+  });
+
+  element.listenForFocusOutEvent(this, passwordElement, function (e) {
+    goog.dom.classlist.add(toggleElement, CLASS_TOGGLE_BLUR_);
+    goog.dom.classlist.remove(toggleElement, CLASS_TOGGLE_FOCUS_);
+  });
+
+  element.listenForActionEvent(this, toggleElement,
+    goog.bind(element.password.togglePasswordVisible, this));
 };
 
 

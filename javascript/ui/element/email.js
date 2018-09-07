@@ -72,6 +72,23 @@ element.email.validate_ = function(emailElement, errorElement) {
   }
 };
 
+/**
+ * Enables or disables the log in button based on email and password fields.
+ * @this {goog.ui.Component}
+ */
+element.email.updateLogInButton = function () {
+  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email");
+  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password");
+  var logInButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit");
+  if (inputEmail != null && inputPassword != null && logInButton != null) {
+    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
+      logInButton.removeAttribute("disabled");
+    } else {
+      logInButton.setAttribute("disabled", "disabled");
+    }
+  }
+  return null;
+};
 
 /**
  * Initializes the email element.
@@ -88,6 +105,8 @@ element.email.initEmailElement = function(opt_onEnter) {
       element.setValid(emailElement, true);
       element.hide(errorElement);
     }
+
+    element.email.updateLogInButton();
   });
   if (opt_onEnter) {
     element.listenForEnterEvent(this, emailElement, function(e) {
