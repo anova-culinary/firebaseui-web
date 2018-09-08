@@ -76,15 +76,15 @@ element.email.validate_ = function(emailElement, errorElement) {
  * Enables or disables the log in button based on email and password fields.
  * @this {goog.ui.Component}
  */
-element.email.updateLogInButton = function () {
-  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email");
-  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password");
-  var logInButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit");
-  if (inputEmail != null && inputPassword != null && logInButton != null) {
+element.email.updateSubmitButton = function () {
+  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email, .firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-email");
+  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password, .firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-new-password");
+  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit, .firebaseui-id-page-password-sign-up .firebaseui-id-submit");
+  if (inputEmail != null && inputPassword != null && submitButton != null) {
     if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
-      logInButton.removeAttribute("disabled");
+      submitButton.removeAttribute("disabled");
     } else {
-      logInButton.setAttribute("disabled", "disabled");
+      submitButton.setAttribute("disabled", "disabled");
     }
   }
   return null;
@@ -106,7 +106,7 @@ element.email.initEmailElement = function(opt_onEnter) {
       element.hide(errorElement);
     }
 
-    element.email.updateLogInButton();
+    element.email.updateSubmitButton();
   });
   if (opt_onEnter) {
     element.listenForEnterEvent(this, emailElement, function(e) {

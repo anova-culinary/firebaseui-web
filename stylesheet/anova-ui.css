@@ -193,7 +193,8 @@ h1.anova-title {
 }
 
 #firebaseui-container .firebaseui-id-page-sign-in .firebaseui-title,
-#firebaseui-container .firebaseui-id-page-password-sign-in .firebaseui-title {
+#firebaseui-container .firebaseui-id-page-password-sign-in .firebaseui-title,
+#firebaseui-container .firebaseui-id-page-password-sign-up .firebaseui-title {
   margin-top: 24px;
   padding-bottom: 10px;
 }
@@ -329,7 +330,8 @@ h1.anova-title {
 }
 
 .firebaseui-id-page-sign-in .fa-anova,
-.firebaseui-id-page-password-sign-in .fa-anova {
+.firebaseui-id-page-password-sign-in .fa-anova,
+.firebaseui-id-page-password-sign-up .fa-anova {
   font-size: 16px;
 }
 
