@@ -120,6 +120,8 @@ goog.mixin(
           firebaseui.auth.ui.element.password.getPasswordElement,
       getPasswordErrorElement:
           firebaseui.auth.ui.element.password.getPasswordErrorElement,
+      getPasswordToggleElement:
+          firebaseui.auth.ui.element.password.getPasswordToggleElement,
       initPasswordElement:
           firebaseui.auth.ui.element.password.initPasswordElement,
       checkAndGetPassword:

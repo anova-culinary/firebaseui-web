@@ -148,6 +148,8 @@ const TYPES_FILE = "./types/index.d.ts";
 // The externs directory files.
 const EXTERNS_FILES = "./externs/*.js";
 
+const ASSET_DIR = `${DEST_DIR}/assets`
+
 // Compiles the Closure templates into JavaScript.
 gulp.task(
   "build-soy",
@@ -395,6 +397,17 @@ function buildCss(isRtl) {
     .pipe(gulp.dest(DEST_DIR));
 }
 
+/**
+ * Copy the Assets for FirebaseUI.
+ */
+function buildAssets() {
+  return gulp
+    .src('assets/*')
+    .pipe(gulp.dest(ASSET_DIR))
+}
+
+gulp.task('copy-assets', () => buildAssets())
+
 // Concatenates and minifies the CSS sources for LTR languages.
 gulp.task("build-css", () => buildCss(false));
 
@@ -421,6 +434,7 @@ gulp.task(
     "build-npm",
     "build-css",
     "build-css-rtl",
+    "copy-assets",
     "clean"
   )
 );
@@ -435,6 +449,7 @@ gulp.task(
     "build-npm",
     "build-css",
     "build-css-rtl",
+    "copy-assets",
     "clean"
   )
 );

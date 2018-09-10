@@ -1473,6 +1473,10 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
         opt_displayName,
         undefined,
         opt_displayFullTosPpMessage);
+        
+    firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+      type: "sign up"
+    });
   } else if (goog.array.contains(signInMethods,
       firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD) ||
       goog.array.contains(signInMethods,
@@ -1484,6 +1488,10 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
         container,
         email,
         opt_displayFullTosPpMessage);
+    
+    firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+      type: "log in"
+    })
   } else {
     // Federated Account.
     // The account exists, and is a federated identity account.
@@ -1500,6 +1508,10 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
         email,
         signInMethods[0],
         opt_infoBarMessage);
+    
+    firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+      type: "log in federated"
+    })
   }
 };
 

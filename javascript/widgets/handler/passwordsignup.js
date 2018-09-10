@@ -55,6 +55,9 @@ firebaseui.auth.widget.handler.handlePasswordSignUp = function(
       // On submit.
       function() {
         firebaseui.auth.widget.handler.onSignUpSubmit_(app, component);
+        firebaseui.auth.widget.handler.common.trackWithPlatform("AccountSubmitted", {
+          type: "sign up"
+        })
       },
       // On cancel.
       opt_disableCancel ? undefined : onCancel,
