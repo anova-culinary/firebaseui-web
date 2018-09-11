@@ -120,20 +120,59 @@ element.newPassword.validate_ = function(newPasswordElement, errorElement) {
   }
 };
 
+
+/**
+ * Checks whether the element is on a page that should enable/disable the submit button.
+ * @this {goog.ui.Component}
+ */
+element.newPassword.shouldUpdateSubmitButton = function() {
+  var isPasswordSignUpPage = document.querySelector(".firebaseui-id-page-password-sign-up") != null;
+  var isPasswordResetPage = document.querySelector(".firebaseui-id-page-password-reset") != null;
+
+  return isPasswordSignUpPage === true || isPasswordResetPage === true
+}
+
+
+/**
+ * Checks if elements of the passed in array of inputs are all not null.
+ * @this {goog.ui.Component}
+ */
+element.newPassword.inputsAllExist = function(inputs) {
+  return inputs.every(function (input) {
+    return input != null;
+  });
+}
+
+
+/**
+ * Checks if elements of the passed in array of inputs are all populated with a value.
+ * @this {goog.ui.Component}
+ */
+element.newPassword.inputsAreAllFilledIn = function(inputs) {
+  return inputs.every(function (input) {
+    return input.value.length > 0;
+  });
+}
+
+
 /**
  * Enables or disables the log in button based on email and password fields.
  * @this {goog.ui.Component}
  */
 element.newPassword.updateSubmitButton = function () {
-  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-email");
-  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-new-password");
-  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-id-submit");
+  if (element.newPassword.shouldUpdateSubmitButton() === true) {
+    var inputEmailClass = ".firebaseui-input.firebaseui-id-email";
+    var inputNewPasswordClass = ".firebaseui-input.firebaseui-id-new-password";
+    var inputs = Array.prototype.slice.call(document.querySelectorAll(inputEmailClass + ", " + inputNewPasswordClass));
 
-  if (inputEmail != null && inputPassword != null && submitButton != null) {
-    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
-      submitButton.removeAttribute("disabled");
-    } else {
-      submitButton.setAttribute("disabled", "disabled");
+    var submitButton = document.querySelector(".firebaseui-id-submit");
+    
+    if (inputs.length > 0 && element.newPassword.inputsAllExist(inputs) && submitButton != null) {
+      if (element.newPassword.inputsAreAllFilledIn(inputs)) {
+        submitButton.removeAttribute("disabled");
+      } else {
+        submitButton.setAttribute("disabled", "disabled");
+      }
     }
   }
 
