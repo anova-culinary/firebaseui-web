@@ -72,23 +72,68 @@ element.email.validate_ = function(emailElement, errorElement) {
   }
 };
 
+
+/**
+ * Checks whether the element is on a page that should enable/disable the submit button.
+ * @this {goog.ui.Component}
+ */
+element.email.shouldUpdateSubmitButton = function() {
+  var isPasswordSignUpPage = document.querySelector(".firebaseui-id-page-password-sign-up") != null;
+  var isPasswordSignInPage = document.querySelector(".firebaseui-id-page-password-sign-in") != null;
+  var isPasswordRecoveryPage = document.querySelector(".firebaseui-id-page-password-recovery") != null;
+
+  return isPasswordSignUpPage === true || 
+         isPasswordSignInPage === true || 
+         isPasswordRecoveryPage === true
+}
+
+
+/**
+ * Checks if elements of the passed in array of inputs are all not null.
+ * @this {goog.ui.Component}
+ */
+element.email.inputsAllExist = function(inputs) {
+  return inputs.every(function (input) {
+    return input != null;
+  });
+}
+
+
+/**
+ * Checks if elements of the passed in array of inputs are all populated with a value.
+ * @this {goog.ui.Component}
+ */
+element.email.inputsAreAllFilledIn = function(inputs) {
+  return inputs.every(function (input) {
+    return input.value.length > 0;
+  });
+}
+
+
 /**
  * Enables or disables the log in button based on email and password fields.
  * @this {goog.ui.Component}
  */
 element.email.updateSubmitButton = function () {
-  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email, .firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-email");
-  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password, .firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-new-password");
-  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit, .firebaseui-id-page-password-sign-up .firebaseui-id-submit");
-  if (inputEmail != null && inputPassword != null && submitButton != null) {
-    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
-      submitButton.removeAttribute("disabled");
-    } else {
-      submitButton.setAttribute("disabled", "disabled");
+  if (element.email.shouldUpdateSubmitButton() === true) {
+    var inputEmailClass = ".firebaseui-input.firebaseui-id-email";
+    var inputPasswordClass = ".firebaseui-input.firebaseui-id-password";
+    var inputs = Array.prototype.slice.call(document.querySelectorAll(inputEmailClass + ", " + inputPasswordClass));
+
+    var submitButton = document.querySelector(".firebaseui-id-submit");
+    
+    if (inputs.length > 0 && element.email.inputsAllExist(inputs) && submitButton != null) {
+      if (element.email.inputsAreAllFilledIn(inputs)) {
+        submitButton.removeAttribute("disabled");
+      } else {
+        submitButton.setAttribute("disabled", "disabled");
+      }
     }
   }
+
   return null;
 };
+
 
 /**
  * Initializes the email element.
@@ -99,6 +144,9 @@ element.email.updateSubmitButton = function () {
 element.email.initEmailElement = function(opt_onEnter) {
   var emailElement = element.email.getEmailElement.call(this);
   var errorElement = element.email.getEmailErrorElement.call(this);
+  
+  element.email.updateSubmitButton();
+
   element.listenForInputEvent(this, emailElement, function(e) {
     // Clear the error message.
     if (element.isShown(errorElement)) {
