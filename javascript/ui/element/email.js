@@ -78,11 +78,13 @@ element.email.validate_ = function(emailElement, errorElement) {
  * @this {goog.ui.Component}
  */
 element.email.shouldUpdateSubmitButton = function() {
+  var isSignInPage = document.querySelector(".firebaseui-id-page-sign-in") != null;
   var isPasswordSignUpPage = document.querySelector(".firebaseui-id-page-password-sign-up") != null;
   var isPasswordSignInPage = document.querySelector(".firebaseui-id-page-password-sign-in") != null;
   var isPasswordRecoveryPage = document.querySelector(".firebaseui-id-page-password-recovery") != null;
 
-  return isPasswordSignUpPage === true || 
+  return isSignInPage === true         ||
+         isPasswordSignUpPage === true || 
          isPasswordSignInPage === true || 
          isPasswordRecoveryPage === true
 }
