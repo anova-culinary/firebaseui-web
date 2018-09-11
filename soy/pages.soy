@@ -24,7 +24,7 @@
   {@param? email: string} /** The email address to prefill. */
   {@param? displayCancelButton: bool} /** Whether to display the cancel button. */
   {@param? displayFullTosPpMessage: bool} /** Whether to display the full message of ToS and PP. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-sign-in">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-sign-in">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <a href="https://anovaculinary.com">
@@ -65,7 +65,7 @@
 {template .passwordSignIn}
   {@param? email: string} /** The email address to prefill. */
   {@param? displayFullTosPpMessage: bool} /** Whether to display the full message of ToS and PP. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-sign-in">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-password-sign-in">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <a href="https://anovaculinary.com">
@@ -106,7 +106,7 @@
   {@param? name: string} /** The name to prefill. */
   {@param? allowCancel: bool} /** Whether to show the cancel link. */
   {@param? displayFullTosPpMessage: bool} /** Whether to display the full message of ToS and PP. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-sign-up">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-password-sign-up">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <a href="https://anovaculinary.com">
@@ -149,17 +149,20 @@
 {template .passwordRecovery}
   {@param? email: string} /** The email address to prefill. */
   {@param? allowCancel: bool} /** Whether to show the cancel link. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-recovery">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-password-recovery">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">
-          {msg desc="Header of a password recovery page."}Recover password{/msg}
+        <a href="https://anovaculinary.com">
+          <i class="fa fa-anova" aria-hidden="true"></i>
+        </a>
+        <h1 class="firebaseui-title anova-title--secondary">
+          {msg desc="Header of a password recovery page."}Reset your password{/msg}
         </h1>
       </div>
       <div class="firebaseui-card-content">
-        <p class="firebaseui-text">
+        <p class="firebaseui-text anova-description">
           {msg desc="Information on how the user resets their password."}
-            Get instructions sent to this email that explain how to reset your password
+            Enter your email and receive<br /> instructions to reset your password
           {/msg}
         </p>
         {call firebaseui.auth.soy2.element.email data="all" /}
@@ -167,7 +170,7 @@
       <div class="firebaseui-card-actions">
         <div class="firebaseui-form-actions">
           {if $allowCancel}
-            {call firebaseui.auth.soy2.element.cancelButton /}
+            {call firebaseui.auth.soy2.element.backButton /}
           {/if}
           {call firebaseui.auth.soy2.element.submitButton}
             {param label kind="text"}
@@ -192,19 +195,22 @@
 {template .passwordRecoveryEmailSent}
   {@param email: string} /** The email address to which the password reset email has been sent. */
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-password-recovery-email-sent">
     <div class="firebaseui-card-header">
-      <h1 class="firebaseui-title">
+      <a href="https://anovaculinary.com">
+        <i class="fa fa-anova" aria-hidden="true"></i>
+      </a>
+      <h1 class="firebaseui-title anova-title--secondary">
         {msg desc="Header of a notice page when the password recovery email has been sent."}
           Check your email
         {/msg}
       </h1>
     </div>
     <div class="firebaseui-card-content">
-      <p class="firebaseui-text">
+      <p class="firebaseui-text anova-description">
         {msg desc="Detailed info of a notice page when the password recovery email has been sent."}
-          Follow the instructions sent to <strong>{$email}</strong> to recover your password
+          Follow the instructions sent to<br /> <strong>{$email}</strong> to reset your password
         {/msg}
       </p>
     </div>
@@ -233,7 +239,7 @@
  * API so that the user won't be confused by the blank page.
  */
 {template .callback}
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-callback">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-callback">
     <div class="firebaseui-callback-indicator-container">
       {call firebaseui.auth.soy2.element.busyIndicator /}
     </div>
@@ -247,7 +253,7 @@
 {template .passwordLinking}
   /** The user's email. */
   {@param email:string}
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-linking">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-password-linking">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
@@ -290,7 +296,7 @@
   {@param email: string}
   {@param providerId: string}
   {let $idpDisplayName kind="text"}{call firebaseui.auth.soy2.element.idpName data="all" /}{/let}
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-federated-linking">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-federated-linking">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
@@ -334,19 +340,22 @@
  */
 {template .passwordReset}
   {@param email: string} /** The email address of the account to reset password. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-password-reset">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-password-reset">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
-        <h1 class="firebaseui-title">
+        <a href="https://anovaculinary.com">
+          <i class="fa fa-anova" aria-hidden="true"></i>
+        </a>
+        <h1 class="firebaseui-title anova-title--secondary">
           {msg desc="Header of a page where the user can reset their password."}
-            Reset your password
+            Make a new password
           {/msg}
         </h1>
       </div>
       <div class="firebaseui-card-content">
         {msg desc="Tell the user the email of the account for which the password is being
             changed."}
-          <p class="firebaseui-text">
+          <p class="firebaseui-text anova-description">
             for <strong>{$email}</strong>
           </p>
         {/msg}
@@ -363,6 +372,9 @@
           {call firebaseui.auth.soy2.element.saveButton /}
         </div>
       </div>
+      <div class="firebaseui-card-footer">
+        {call firebaseui.auth.soy2.element.tosPpLinkHardCoded /}
+      </div>
     </form>
   </div>
 {/template}
@@ -373,26 +385,32 @@
  */
 {template .passwordResetSuccess}
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-password-reset-success">
     <div class="firebaseui-card-header">
-      <h1 class="firebaseui-title">
+      <a href="https://anovaculinary.com">
+        <i class="fa fa-anova" aria-hidden="true"></i>
+      </a>
+      <h1 class="firebaseui-title anova-title--secondary">
         {msg desc="Header of a successful password change notice page"}Password changed{/msg}
       </h1>
     </div>
     <div class="firebaseui-card-content">
-      <p class="firebaseui-text">
+      <p class="firebaseui-text anova-description">
         {msg desc="Detailed info of a notice page that password reset succeeded."}
-          You can now sign in with your new password
+          You can now log in with your new password
         {/msg}
       </p>
     </div>
     <div class="firebaseui-card-actions">
       {if $allowContinue}
         <div class="firebaseui-form-actions">
-          {call firebaseui.auth.soy2.element.continueButton /}
+          {call firebaseui.auth.soy2.element.signInButton /}
         </div>
       {/if}
+    </div>
+    <div class="firebaseui-card-footer">
+      {call firebaseui.auth.soy2.element.tosPpLinkHardCoded /}
     </div>
   </div>
 {/template}
@@ -403,17 +421,20 @@
  */
 {template .passwordResetFailure}
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-password-reset-failure">
     <div class="firebaseui-card-header">
-      <h1 class="firebaseui-title">
+      <a href="https://anovaculinary.com">
+        <i class="fa fa-anova" aria-hidden="true"></i>
+      </a>
+      <h1 class="firebaseui-title anova-title--secondary">
         {msg desc="Header of a password reset failure notice page"}
           Try resetting your password again
         {/msg}
       </h1>
     </div>
     <div class="firebaseui-card-content">
-      <p class="firebaseui-text">
+      <p class="firebaseui-text anova-description">
         {msg desc="Detailed info of a notice page that password reset failed."}
           Your request to reset your password has expired or the link has already been used
         {/msg}
@@ -426,6 +447,9 @@
         </div>
       {/if}
     </div>
+    <div class="firebaseui-card-footer">
+      {call firebaseui.auth.soy2.element.tosPpLinkHardCoded /}
+    </div>
   </div>
 {/template}
 
@@ -436,7 +460,7 @@
 {template .emailChangeRevokeSuccess}
   {@param email: string} /** The old email address of the account to reactivate. */
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-email-change-revoke-success">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
@@ -481,7 +505,7 @@
  */
 {template .emailChangeRevokeFailure}
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-email-change-revoke-failure">
     <div class="firebaseui-card-header">
       <h1 class="firebaseui-title">
@@ -516,7 +540,7 @@
  */
 {template .emailVerificationSuccess}
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-email-verification-success">
     <div class="firebaseui-card-header">
       <h1 class="firebaseui-title">
@@ -548,7 +572,7 @@
  */
 {template .emailVerificationFailure}
   {@param? allowContinue: bool} /** Whether to show the continue button. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-email-verification-failure">
     <div class="firebaseui-card-header">
       <h1 class="firebaseui-title">
@@ -580,7 +604,7 @@
  */
 {template .unrecoverableError}
   {@param errorMessage: string} /** The detailed error message. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-unrecoverable-error">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-unrecoverable-error">
     <div class="firebaseui-card-header">
       <h1 class="firebaseui-title">
         {msg desc="Header of a notice page"}Error encountered{/msg}
@@ -601,7 +625,7 @@
 {template .emailMismatch}
   {@param userEmail: string} /** The email returned by the identity provider. */
   {@param pendingEmail: string} /** The email formerly used. */
-  <div class="mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-email-mismatch">
+  <div class="mdl-card firebaseui-container firebaseui-id-page-email-mismatch">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
         <h1 class="firebaseui-title">{msg desc="Header of a sign-in page."}Log in{/msg}</h1>
@@ -683,7 +707,7 @@
   {@param? nationalNumber: string} /** The phone number to prefill. */
   {@param? enableVisibleRecaptcha: bool} /** Whether to enable the visible reCAPTCHA. */
   {@param? displayFullTosPpMessage: bool} /** Whether to display the full message of ToS and PP. */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-phone-sign-in-start">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
@@ -729,7 +753,7 @@
  */
 {template .phoneSignInFinish}
   {@param? phoneNumber: string} /** The phone number to confirm */
-  <div class="mdl-card mdl-shadow--2dp{sp}
+  <div class="mdl-card{sp}
       firebaseui-container firebaseui-id-page-phone-sign-in-finish">
     <form onsubmit="return false;">
       <div class="firebaseui-card-header">
