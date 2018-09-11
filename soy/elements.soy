@@ -283,7 +283,8 @@
           type="password"
           name="newPassword"
           autocomplete="new-password"
-          class="mdl-textfield__input firebaseui-input firebaseui-id-new-password">
+          class="mdl-textfield__input firebaseui-input firebaseui-id-new-password"
+          spellcheck="false">
     </div>
     <a href="javascript:void(0)" class="firebaseui-input-floating-button{sp}
         firebaseui-id-password-toggle firebaseui-input-toggle-on firebaseui-input-toggle-blur">
@@ -315,7 +316,8 @@
           type="password"
           name="password"
           autocomplete="current-password"
-          class="mdl-textfield__input firebaseui-input firebaseui-id-password">
+          class="mdl-textfield__input firebaseui-input firebaseui-id-password"
+          spellcheck="false">
     </div>
     <a href="javascript:void(0)" class="firebaseui-input-floating-button{sp}
           firebaseui-id-password-toggle firebaseui-input-toggle-on firebaseui-input-toggle-blur">
@@ -394,6 +396,24 @@
   {/if}
 {/template}
 
+
+/**
+ * Renders hard-coded links of Terms of Service and Privacy Policy.
+ */
+{template .tosPpLinkHardCoded}
+  <ul class="firebaseui-tos-list firebaseui-tos">
+    <li class="firebaseui-inline-list-item">
+      <a href="https://anovaculinary.com/terms/" class="firebaseui-link firebaseui-tos-link" target="_blank">
+        {msg desc="Label for the terms of service"}Terms of Service{/msg}
+      </a>
+    </li>
+    <li class="firebaseui-inline-list-item">
+      <a href="https://anovaculinary.com/privacy/" class="firebaseui-link firebaseui-pp-link" target="_blank">
+        {msg desc="Label for the privacy policy"}Privacy Policy{/msg}
+      </a>
+    </li>
+  </ul>
+{/template}
 
 /**
  * Renders Terms of Service and Privacy Policy agreement and a notice to the user about SMS rates

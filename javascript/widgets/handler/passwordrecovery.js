@@ -103,6 +103,10 @@ firebaseui.auth.widget.handler.onPasswordRecoverySubmit_ =
     noticeComponent.render(container);
     // Set current UI component.
     app.setCurrentComponent(noticeComponent);
+    
+    firebaseui.auth.widget.handler.common.trackWithPlatform("PasswordResetEmailSubmitted", {
+      email: email
+    })
   };
   var emailSentFailedCallback = function(error) {
     firebaseui.auth.ui.element.setValid(component.getEmailElement(), false);
