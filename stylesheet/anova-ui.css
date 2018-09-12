@@ -6,36 +6,60 @@ body {
 
 h1 {
   font-family: proxima-nova;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   color: #646464;
-}
-
-#firebaseui-container .firebaseui-card-header {
-  padding: 0;
 }
 
 #firebaseui-container .firebaseui-container {
   background-color: #fff;
   margin-top: 12px;
   border-radius: 8px;
-  max-width: 328px;
+  max-width: 360px;
+  min-width: 320px;
   width: auto;
-  min-height: 472px;
+  min-height: 520px;
   position: relative;
-  padding: 36px 24px 0px 24px;
+  padding: 30px 0 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 352px) {
+#firebaseui-container .firebaseui-container.firebaseui-page-provider-sign-in {
+  padding-top: 36px;
+}
+
+@media screen and (max-width: 320px) {
+  body {
+    background-color: #fff;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 352px) {
   #firebaseui-container .firebaseui-container {
     margin-left: 12px;
     margin-right: 12px;
   }
 }
 
-#firebaseui-container .firebaseui-card-content {
-  padding: 0;
+#firebaseui-container .firebaseui-card-header {
+  padding: 0 36px 0 36px;
   text-align: center;
+}
+
+#firebaseui-container .firebaseui-card-content {
+  padding: 0 36px 0 36px;
+  text-align: center;
+}
+
+#firebaseui-container .firebaseui-page-provider-sign-in .firebaseui-card-content {
+  padding: 0;
+}
+
+#firebaseui-container .firebaseui-card-actions {
+  padding: 0 36px 0 36px;
+  font-size: 15px;
 }
 
 #firebaseui-container .firebaseui-card-footer {
@@ -55,57 +79,74 @@ h1 {
 }
 
 #firebaseui-container .firebaseui-card-footer .firebaseui-tos {
-  margin-bottom: 14px;
+  margin-bottom: 15px;
   padding: 0 15px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 13px;
   letter-spacing: 0px;
+}
+
+#firebaseui-container .firebaseui-page-provider-sign-in .firebaseui-card-footer .firebaseui-tos {
+  margin-bottom: 11px;
 }
 
 #firebaseui-container .firebaseui-input,
 #firebaseui-container .firebaseui-input-invalid {
   background-color: #f5f5f5;
   color: #646464;
-  padding-left: 10px;
+  padding-left: 12px;
 }
 
 #firebaseui-container .firebaseui-label {
-  padding-left: 10px;
+  padding-left: 12px;
   top: 18px;
 }
 
 #firebaseui-container .firebaseui-textfield.is-focused .firebaseui-label,
 #firebaseui-container .firebaseui-textfield.is-dirty .firebaseui-label {
-  padding-top: 8px;
-  font-size: 10px;
+  padding-top: 3px;
+  font-size: 12px;
   top: 4px;
 }
 
 #firebaseui-container .firebaseui-textfield .firebaseui-input {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  box-shadow: 0 -16px 0 0 #f5f5f5;
+  box-shadow: 0 -20px 0 0 #f5f5f5;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#firebaseui-container  .firebaseui-container .firebaseui-idp-icon-wrapper {
+  position: relative;
+  left: 1px;
+  top: 0px;
 }
 
 /* Overwrite common styles for login buttons */
 #firebaseui-container .firebaseui-list-item .firebaseui-idp-text {
-  font-size: 16px;
+  font-size: 18px;
   font-family: "proxima-nova";
-  font-weight: 600;
-  letter-spacing: 0.35px;
+  font-weight: bold;
+  padding-left: 22px;
 }
+
 #firebaseui-container .firebaseui-idp-icon-wrapper > img.firebaseui-idp-icon {
   height: 22px;
   width: 22px;
 }
+
 #firebaseui-container .firebaseui-id-idp-button {
   border-radius: 8px;
-  max-width: 243px;
-  min-height: 30px;
+  max-width: 268px;
+  width: 100%;
+  min-height: 38px !important;
   padding: 6.5px 15px 6.5px 7px;
+  margin: 0 auto;
 }
+
 #firebaseui-container .firebaseui-idp-list > .firebaseui-list-item {
-  margin-bottom: 11px;
+  margin-bottom: 12px;
 }
 
 /* Overwrite google button */
@@ -148,19 +189,20 @@ h1 {
 }
 
 h1.anova-title {
-  margin-top: 42px;
+  margin-top: 33px;
+  margin-bottom: 18px;
   text-align: center;
 }
 
 h1.anova-title--secondary {
-  margin-top: 23px;
-  padding-bottom: 14px;
+  margin-top: 17px;
+  padding-bottom: 17px;
   text-align: left;
 }
 
 p.anova-description {
-  margin: 0 0 10px 0;
-  font-size: 15px;
+  margin: 0 0 20px 0;
+  font-size: 18px;
   color: #646464;
   line-height: 1.35;
 }
@@ -170,8 +212,8 @@ p.anova-description {
   font-size: 15px;
   color: #646464;
   text-align: center;
-  margin-top: 16px;
-  margin-bottom: 14px;
+  margin-top: 17px;
+  margin-bottom: 17px;
   text-transform: uppercase;
 }
 
@@ -187,8 +229,8 @@ p.anova-description {
 }
 
 #firebaseui-container .firebaseui-button {
-  padding-top: 1px;
-  font-weight: 300;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 0;
 }
 
@@ -211,7 +253,7 @@ p.anova-description {
 
 #firebaseui-container .firebaseui-title {
   font-family: proxima-nova;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   color: #646464;
 }
@@ -219,8 +261,8 @@ p.anova-description {
 #firebaseui-container .firebaseui-id-page-sign-in .firebaseui-title,
 #firebaseui-container .firebaseui-id-page-password-sign-in .firebaseui-title,
 #firebaseui-container .firebaseui-id-page-password-sign-up .firebaseui-title {
-  margin-top: 24px;
-  padding-bottom: 10px;
+  margin-top: 17px;
+  padding-bottom: 13px;
 }
 
 #firebaseui-container .firebaseui-relative-wrapper {
@@ -229,11 +271,6 @@ p.anova-description {
 
 #firebaseui-container .firebaseui-link {
   color: #ff8b01;
-}
-
-#firebaseui-container .firebaseui-card-actions {
-  padding-right: 0;
-  padding-left: 0;
 }
 
 #firebaseui-container .firebaseui-error {
