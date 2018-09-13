@@ -115,7 +115,7 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
 // Initialize an internal temporary password credential. This will be used
   // to signInWithCredential to the developer provided auth instance on success.
   // This credential will never be passed to developer or stored internally.
-  var createUserInFirebase = function (email, password) {
+  var createUserInFirebase = function (email, password, userExistsInCognitoShowSignIn) {
     var emailPassCred =
       firebase.auth.EmailAuthProvider.credential(email, password);
     // Sign up new account.
@@ -132,6 +132,14 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
           'operationType': userCredential['operationType'],
           'additionalUserInfo': userCredential['additionalUserInfo']
         });
+
+        // CUSTOM ANOVA CODE
+        if (userExistsInCognitoShowSignIn) {
+          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationSucceeded", {
+            email: email
+          })
+        }
+
         if (requireDisplayName) {
           // Sign up successful. We can now set the name.
           var p = userCredential['user'].updateProfile({'displayName': name})
@@ -153,6 +161,14 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
         }
         var errorMessage =
           firebaseui.auth.widget.handler.common.getErrorMessage(error);
+
+        // CUSTOM ANOVA CODE
+        if(userExistsInCognitoShowSignIn) {
+          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationFailed", {
+            errorStatus: error['code'],
+            errorMessage: errorMessage
+          })
+        }
         switch (error['code']) {
           case 'auth/email-already-in-use':
             // Check if the user is locked out of their account or just display
@@ -200,8 +216,12 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
       if (xmlhttp.readyState === XMLHttpRequest.DONE) {
         if (xmlhttp.status === 200) {
           console.log(`logged in to cognito with ${email}!`)
-          createUserInFirebase(email, password)
+          createUserInFirebase(email, password, opt_userExistsInCognitoShowSignIn)
         } else {
+          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationFailed", {
+            errorStatus: xmlhttp.status,
+            errorMessage: "The email and password you entered don't match"
+          })
           // TODO: handle failures that are not caused by bad password
           var showInvalidPassword = function(error) {
             firebaseui.auth.ui.element.setValid(component.getNewPasswordElement(), false);
