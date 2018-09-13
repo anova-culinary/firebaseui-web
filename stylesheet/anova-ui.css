@@ -44,12 +44,12 @@ h1 {
 }
 
 #firebaseui-container .firebaseui-card-header {
-  padding: 0 36px 0 36px;
+  padding: 0 20px 0 20px;
   text-align: center;
 }
 
 #firebaseui-container .firebaseui-card-content {
-  padding: 0 36px 0 36px;
+  padding: 0 20px 0 20px;
   text-align: center;
 }
 
@@ -58,7 +58,7 @@ h1 {
 }
 
 #firebaseui-container .firebaseui-card-actions {
-  padding: 0 36px 0 36px;
+  padding: 0 20px 0 20px;
   font-size: 15px;
 }
 
@@ -109,7 +109,8 @@ h1 {
   top: 4px;
 }
 
-#firebaseui-container .firebaseui-textfield .firebaseui-input {
+#firebaseui-container .firebaseui-textfield .firebaseui-input,
+#firebaseui-container .firebaseui-textfield .firebaseui-input-invalid {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 0 -20px 0 0 #f5f5f5;
@@ -386,4 +387,63 @@ input:-webkit-autofill {
   width: 150px;
   height: 45px;
   object-fit: contain;
+}
+
+/* #firebaseui-container .anova-checkbox #privacy-policy,
+#firebaseui-container .anova-checkbox #terms-of-service {
+  width: 30px;
+  height: 30px;
+  background-image: url(/ali/firebaseui/assets/checkbox-unchecked.svg);
+}
+
+#firebaseui-container .anova-checkbox #privacy-policy:checked,
+#firebaseui-container .anova-checkbox #terms-of-service:checked {
+  background-image: url(/ali/firebaseui/assets/checkbox-checked.svg)
+} */
+.anova-checkbox-wrapper {
+  margin-bottom: 14px;
+}
+
+.anova-checkbox-wrapper input[type=checkbox] {
+  display: none;
+}
+
+.anova-checkbox-wrapper label {
+  display: flex;
+  flex-direction: row;
+  font-family: proxima-nova;
+  font-size: 15px;
+  color: #646464;
+  cursor: pointer;
+}
+
+.anova-checkbox-wrapper a {
+  color: #ff8b01;
+  text-decoration: none;
+}
+
+.anova-checkbox-wrapper a:hover {
+  text-decoration: underline;
+}
+
+.anova-checkbox-wrapper label span {
+  display: block;
+  text-align: left;
+}
+
+.anova-checkbox-wrapper input[type=checkbox] ~ label > .anova-checkbox {
+  width: 30px;
+  height: 30px;
+  background-image: url(/ali/firebaseui/assets/checkbox-unchecked.svg);
+  margin-top: 3px;
+}
+
+.anova-checkbox-wrapper input[type=checkbox]:checked ~ label > .anova-checkbox {
+  width: 30px;
+  height: 30px;
+  background-image: url(/ali/firebaseui/assets/checkbox-checked.svg);
+}
+
+.anova-checkbox-description {
+  padding-left: 16px;
 }

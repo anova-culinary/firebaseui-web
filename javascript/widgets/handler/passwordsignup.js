@@ -51,6 +51,9 @@ firebaseui.auth.widget.handler.handlePasswordSignUp = function(
     // On cancel return to widget start page.
     firebaseui.auth.widget.handler.common.handleSignInStart(app, container);
   };
+
+  var opt_displayGDPRTosPpMessage = firebaseui.auth.widget.handler.requiresGDPRCheckboxes_();
+
   // Render the UI.
   var component = new firebaseui.auth.ui.page.PasswordSignUp(
       app.getConfig().isDisplayNameRequired(),
@@ -68,6 +71,7 @@ firebaseui.auth.widget.handler.handlePasswordSignUp = function(
       app.getConfig().getTosUrl(),
       app.getConfig().getPrivacyPolicyUrl(),
       opt_displayFullTosPpMessage,
+      opt_displayGDPRTosPpMessage,
       undefined,
       opt_userExistsInCognitoShowSignIn);
   component.render(container);
@@ -293,6 +297,26 @@ firebaseui.auth.widget.handler.onEmailExists_ =
       });
   app.registerPending(p);
   return p;
+};
+
+
+firebaseui.auth.widget.handler.requiresGDPRCheckboxes_ = function() {
+  var cookiesString = "; " + document.cookie;
+  var encodedAnovaGeoIpJsonString = cookiesString.split("; anova_geoip=");
+  var anovaGeoIpJson = {};
+  
+  if (encodedAnovaGeoIpJsonString.length === 2) {
+    encodedAnovaGeoIpJsonString = encodedAnovaGeoIpJsonString.pop().split(";").shift();
+    decodedAnovaGeoIpJsonString = decodeURIComponent(encodedAnovaGeoIpJsonString);
+
+    try {
+      anovaGeoIpJson = JSON.parse(decodedAnovaGeoIpJsonString);
+    } finally {
+      return anovaGeoIpJson.continent_code === "EU";
+    }
+  }
+
+  return false;
 };
 
 

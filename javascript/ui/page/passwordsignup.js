@@ -42,7 +42,9 @@ goog.require('firebaseui.auth.ui.page.Base');
  * @param {?function()=} opt_privacyPolicyCallback Callback to invoke when the
  *     Privacy Policy link is clicked.
  * @param {boolean=} opt_displayFullTosPpMessage Whether to display the full
- *     message of Term of Service and Privacy Policy.
+ *     message of Terms of Service and Privacy Policy.
+ * @param {boolean=} opt_displayGDPRTosPpMessage Whether to display the GDPR version
+ *     of Terms of Service and Privacy Policy.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @param {boolean=} opt_userExistsInCognitoShowSignIn Whether to display something else.
  * @constructor
@@ -57,6 +59,7 @@ firebaseui.auth.ui.page.PasswordSignUp = function(
     opt_tosCallback,
     opt_privacyPolicyCallback,
     opt_displayFullTosPpMessage,
+    opt_displayGDPRTosPpMessage,
     opt_domHelper,
     opt_userExistsInCognitoShowSignIn) {
 
@@ -70,6 +73,7 @@ firebaseui.auth.ui.page.PasswordSignUp = function(
         name: opt_name,
         allowCancel: !!opt_onCancelClick,
         displayFullTosPpMessage: !!opt_displayFullTosPpMessage,
+        displayGDPRTosPpMessage: !!opt_displayGDPRTosPpMessage,
         userExistsInCognitoShowSignIn: !!opt_userExistsInCognitoShowSignIn
       },
       opt_domHelper,

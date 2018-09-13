@@ -377,6 +377,40 @@
 
 
 /**
+ * Renders a checkbox for Anova GDPR privacy policy.
+ */
+{template .checkboxPrivacyPolicy}
+  <div class="anova-checkbox-wrapper">
+    <input type="checkbox" id="privacy-policy" name="privacy-policy" required="required" />
+    <label for="privacy-policy">
+      <div class="anova-checkbox"></div>
+      <div class="anova-checkbox-description">
+        <span>I agree to the</span>
+        <a target="_blank" href="https://anovaculinary.com/privacy/">Privacy Policy</a>  
+      </div>
+    </label>
+  </div>
+{/template}
+
+
+/**
+ * Renders a checkbox for Anova GDPR terms of service.
+ */
+{template .checkboxTermsOfService}
+  <div class="anova-checkbox-wrapper">
+    <input type="checkbox" id="terms-of-service" name="terms-of-service" required="required" />
+    <label for="terms-of-service">
+      <div class="anova-checkbox"></div>
+      <div class="anova-checkbox-description">
+        <span>I agree to the</span>
+        <a target="_blank" href="https://anovaculinary.com/terms/">Terms of Service</a>  
+      </div>
+    </label>
+  </div>
+{/template}
+
+
+/**
  * Renders the links of Terms of Service and Privacy Policy.
  */
 {template .tosPpLink}

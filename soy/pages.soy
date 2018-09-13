@@ -106,6 +106,7 @@
   {@param? name: string} /** The name to prefill. */
   {@param? allowCancel: bool} /** Whether to show the cancel link. */
   {@param? displayFullTosPpMessage: bool} /** Whether to display the full message of ToS and PP. */
+  {@param? displayGDPRTosPpMessage: bool} /** Whether to display the GDPR checkboxes for ToS and PP. */
   {@param? userExistsInCognitoShowSignIn: bool} /** Whether to display the "mock" 'Sign in' header for a user who does NOT exist inFirebase yet but does exist in Cognito. */
   <div class="mdl-card firebaseui-container firebaseui-id-page-password-sign-up">
     <form onsubmit="return false;">
@@ -127,6 +128,10 @@
           {call firebaseui.auth.soy2.element.name data="all" /}
         {/if}
         {call firebaseui.auth.soy2.element.newPassword /}
+        {if $displayGDPRTosPpMessage}
+          {call firebaseui.auth.soy2.element.checkboxPrivacyPolicy /}
+          {call firebaseui.auth.soy2.element.checkboxTermsOfService  /}
+        {/if}
       </div>
       <div class="firebaseui-card-actions">
         <div class="firebaseui-form-actions">
@@ -142,10 +147,12 @@
         </div>
       </div>
       <div class="firebaseui-card-footer">
-        {if $displayFullTosPpMessage}
-          {call firebaseui.auth.soy2.element.fullMessageTosPp data="all" /}
-        {else}
-          {call firebaseui.auth.soy2.element.tosPpLink data="all" /}
+        {if $displayGDPRTosPpMessage == false}
+          {if $displayFullTosPpMessage}
+            {call firebaseui.auth.soy2.element.fullMessageTosPp data="all" /}
+          {else}
+            {call firebaseui.auth.soy2.element.tosPpLink data="all" /}
+          {/if}
         {/if}
       </div>
     </form>
