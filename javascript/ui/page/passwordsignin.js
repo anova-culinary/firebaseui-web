@@ -78,6 +78,8 @@ firebaseui.auth.ui.page.PasswordSignIn.prototype.enterDocument = function() {
   this.initEmailElement();
   this.initPasswordElement();
   this.initFormElement(this.onSubmitClick_, this.onForgotClick_);
+  this.updateSubmitButton_();
+  this.setupListenersForUpdatingSubmitButton_();
   this.focusToNextOnEnter(this.getEmailElement(), this.getPasswordElement());
   // Submit if enter pressed in password element.
   this.submitOnEnter(this.getPasswordElement(), this.onSubmitClick_);
@@ -87,6 +89,7 @@ firebaseui.auth.ui.page.PasswordSignIn.prototype.enterDocument = function() {
   } else {
     this.getPasswordElement().focus();
   }
+
   firebaseui.auth.ui.page.PasswordSignIn.base(this, 'enterDocument');
 };
 
@@ -98,6 +101,39 @@ firebaseui.auth.ui.page.PasswordSignIn.prototype.disposeInternal = function() {
   firebaseui.auth.ui.page.PasswordSignIn.base(this, 'disposeInternal');
 };
 
+/**
+ * Enables/disables the submit button based on input fields.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordSignIn.prototype.updateSubmitButton_ = function () {
+  var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+  var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-password");
+
+  var submitButton = document.querySelector(".firebaseui-id-submit");
+  
+  if (emailTextField != null && passwordTextField != null && submitButton != null) {
+    if (emailTextField.value.length > 0 && passwordTextField.value.length > 0) {
+        submitButton.removeAttribute("disabled");
+    } else {
+        submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+  
+
+/**
+ * Sets up listeners for input fields in order to enable/disable submit button.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordSignIn.prototype.setupListenersForUpdatingSubmitButton_ = function() {
+    var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+    var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-password");
+
+    emailTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordSignIn.prototype.updateSubmitButton_);
+    passwordTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordSignIn.prototype.updateSubmitButton_);
+};
 
 goog.mixin(
     firebaseui.auth.ui.page.PasswordSignIn.prototype,

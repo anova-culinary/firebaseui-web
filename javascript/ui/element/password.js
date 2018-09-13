@@ -119,26 +119,6 @@ element.password.validate_ = function(passwordElement, errorElement) {
 
 
 /**
- * Enables or disables the log in button based on email and password fields.
- * @this {goog.ui.Component}
- */
-element.password.updateSubmitButton = function () {
-  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-email");
-  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-input.firebaseui-id-password");
-  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-in .firebaseui-id-submit");
-
-  if (inputEmail != null && inputPassword != null && submitButton != null) {
-    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
-      submitButton.removeAttribute("disabled");
-    } else {
-      submitButton.setAttribute("disabled", "disabled");
-    }
-  }
-
-  return null;
-};
-
-/**
  * Initializes the password element.
  * @this {goog.ui.Component}
  */
@@ -150,16 +130,12 @@ element.password.initPasswordElement = function() {
 
   var errorElement = element.password.getPasswordErrorElement.call(this);
 
-  element.password.updateSubmitButton();
-
   element.listenForInputEvent(this, passwordElement, function(e) {
     // Clear but not show error on-the-fly.
     if (element.isShown(errorElement)) {
       element.setValid(passwordElement, true);
       element.hide(errorElement);
     }
-
-    element.password.updateSubmitButton();
   });
 
   var toggleElement = element.password.getPasswordToggleElement.call(this);

@@ -122,65 +122,6 @@ element.newPassword.validate_ = function(newPasswordElement, errorElement) {
 
 
 /**
- * Checks whether the element is on a page that should enable/disable the submit button.
- * @this {goog.ui.Component}
- */
-element.newPassword.shouldUpdateSubmitButton = function() {
-  var isPasswordSignUpPage = document.querySelector(".firebaseui-id-page-password-sign-up") != null;
-  var isPasswordResetPage = document.querySelector(".firebaseui-id-page-password-reset") != null;
-
-  return isPasswordSignUpPage === true || isPasswordResetPage === true
-}
-
-
-/**
- * Checks if elements of the passed in array of inputs are all not null.
- * @this {goog.ui.Component}
- */
-element.newPassword.inputsAllExist = function(inputs) {
-  return inputs.every(function (input) {
-    return input != null;
-  });
-}
-
-
-/**
- * Checks if elements of the passed in array of inputs are all populated with a value.
- * @this {goog.ui.Component}
- */
-element.newPassword.inputsAreAllFilledIn = function(inputs) {
-  return inputs.every(function (input) {
-    return input.value.length > 0;
-  });
-}
-
-
-/**
- * Enables or disables the log in button based on email and password fields.
- * @this {goog.ui.Component}
- */
-element.newPassword.updateSubmitButton = function () {
-  if (element.newPassword.shouldUpdateSubmitButton() === true) {
-    var inputEmailClass = ".firebaseui-input.firebaseui-id-email";
-    var inputNewPasswordClass = ".firebaseui-input.firebaseui-id-new-password";
-    var inputs = Array.prototype.slice.call(document.querySelectorAll(inputEmailClass + ", " + inputNewPasswordClass));
-
-    var submitButton = document.querySelector(".firebaseui-id-submit");
-    
-    if (inputs.length > 0 && element.newPassword.inputsAllExist(inputs) && submitButton != null) {
-      if (element.newPassword.inputsAreAllFilledIn(inputs)) {
-        submitButton.removeAttribute("disabled");
-      } else {
-        submitButton.setAttribute("disabled", "disabled");
-      }
-    }
-  }
-
-  return null;
-};
-
-
-/**
  * Initializes the new password element.
  * @this {goog.ui.Component}
  */
@@ -192,16 +133,12 @@ element.newPassword.initNewPasswordElement = function() {
 
   var errorElement = element.newPassword.getNewPasswordErrorElement.call(this);
 
-  element.newPassword.updateSubmitButton()
-
   element.listenForInputEvent(this, newPasswordElement, function(e) {
     // Clear but not show error on-the-fly.
     if (element.isShown(errorElement)) {
       element.setValid(newPasswordElement, true);
       element.hide(errorElement);
     }
-
-    element.newPassword.updateSubmitButton()
   });
 
   var toggleElement = element.newPassword.getPasswordToggleElement.call(this);
