@@ -42,7 +42,9 @@ goog.require('firebaseui.auth.ui.page.Base');
  * @param {?function()=} opt_privacyPolicyCallback Callback to invoke when the
  *     Privacy Policy link is clicked.
  * @param {boolean=} opt_displayFullTosPpMessage Whether to display the full
- *     message of Term of Service and Privacy Policy.
+ *     message of Terms of Service and Privacy Policy.
+ * @param {boolean=} opt_displayGDPRTosPpMessage Whether to display the GDPR version
+ *     of Terms of Service and Privacy Policy.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper.
  * @param {boolean=} opt_userExistsInCognitoShowSignIn Whether to display something else.
  * @constructor
@@ -57,6 +59,7 @@ firebaseui.auth.ui.page.PasswordSignUp = function(
     opt_tosCallback,
     opt_privacyPolicyCallback,
     opt_displayFullTosPpMessage,
+    opt_displayGDPRTosPpMessage,
     opt_domHelper,
     opt_userExistsInCognitoShowSignIn) {
 
@@ -70,6 +73,7 @@ firebaseui.auth.ui.page.PasswordSignUp = function(
         name: opt_name,
         allowCancel: !!opt_onCancelClick,
         displayFullTosPpMessage: !!opt_displayFullTosPpMessage,
+        displayGDPRTosPpMessage: !!opt_displayGDPRTosPpMessage,
         userExistsInCognitoShowSignIn: !!opt_userExistsInCognitoShowSignIn
       },
       opt_domHelper,
@@ -94,6 +98,8 @@ firebaseui.auth.ui.page.PasswordSignUp.prototype.enterDocument = function() {
   }
   this.initNewPasswordElement();
   this.initFormElement(this.onSubmitClick_, this.onCancelClick_);
+  this.updateSubmitButton_();
+  this.setupListenersForUpdatingSubmitButton_();
   this.setupFocus_();
   firebaseui.auth.ui.page.PasswordSignUp.base(this, 'enterDocument');
 };
@@ -138,6 +144,58 @@ firebaseui.auth.ui.page.PasswordSignUp.prototype.setupFocus_ = function() {
   } else {
     this.getNewPasswordElement().focus();
   }
+};
+ 
+
+/**
+ * Enables/disables the submit button based on input fields and checkboxes.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordSignUp.prototype.updateSubmitButton_ = function () {
+  var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+  var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-new-password");
+  var privacyPolicyCheckbox = document.querySelector("#privacy-policy");
+  var termsOfServiceCheckbox = document.querySelector("#terms-of-service");
+  
+  var submitButton = document.querySelector(".firebaseui-id-submit");
+  
+  if (emailTextField != null && passwordTextField != null && submitButton != null) {
+    if (emailTextField.value.length > 0 && passwordTextField.value.length > 0) {
+        if (privacyPolicyCheckbox != null && termsOfServiceCheckbox != null) {
+            if (privacyPolicyCheckbox.validity.valid === true && termsOfServiceCheckbox.validity.valid === true) {
+                submitButton.removeAttribute("disabled");
+            } else {
+                submitButton.setAttribute("disabled", "disabled");
+            }
+        } else {
+            submitButton.removeAttribute("disabled");
+        }
+    } else {
+        submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+
+
+/**
+ * Sets up listeners for input fields and checkboxes in order to enable/disable submit button.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordSignUp.prototype.setupListenersForUpdatingSubmitButton_ = function() {
+    var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+    var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-new-password");
+    var privacyPolicyCheckbox = document.querySelector("#privacy-policy");
+    var termsOfServiceCheckbox = document.querySelector("#terms-of-service");
+
+    emailTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordSignUp.prototype.updateSubmitButton_);
+    passwordTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordSignUp.prototype.updateSubmitButton_);
+
+    if (privacyPolicyCheckbox != null && termsOfServiceCheckbox != null) {
+        privacyPolicyCheckbox.addEventListener("change", firebaseui.auth.ui.page.PasswordSignUp.prototype.updateSubmitButton_);
+        termsOfServiceCheckbox.addEventListener("change", firebaseui.auth.ui.page.PasswordSignUp.prototype.updateSubmitButton_);
+    }
 };
 
 

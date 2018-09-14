@@ -120,26 +120,6 @@ element.newPassword.validate_ = function(newPasswordElement, errorElement) {
   }
 };
 
-/**
- * Enables or disables the log in button based on email and password fields.
- * @this {goog.ui.Component}
- */
-element.newPassword.updateSubmitButton = function () {
-  var inputEmail = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-email");
-  var inputPassword = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-input.firebaseui-id-new-password");
-  var submitButton = document.querySelector(".firebaseui-id-page-password-sign-up .firebaseui-id-submit");
-
-  if (inputEmail != null && inputPassword != null && submitButton != null) {
-    if (inputPassword.value.length > 0 && inputEmail.value.length > 0) {
-      submitButton.removeAttribute("disabled");
-    } else {
-      submitButton.setAttribute("disabled", "disabled");
-    }
-  }
-
-  return null;
-};
-
 
 /**
  * Initializes the new password element.
@@ -153,16 +133,12 @@ element.newPassword.initNewPasswordElement = function() {
 
   var errorElement = element.newPassword.getNewPasswordErrorElement.call(this);
 
-  element.newPassword.updateSubmitButton()
-
   element.listenForInputEvent(this, newPasswordElement, function(e) {
     // Clear but not show error on-the-fly.
     if (element.isShown(errorElement)) {
       element.setValid(newPasswordElement, true);
       element.hide(errorElement);
     }
-
-    element.newPassword.updateSubmitButton()
   });
 
   var toggleElement = element.newPassword.getPasswordToggleElement.call(this);

@@ -78,6 +78,8 @@ firebaseui.auth.ui.page.SignIn.prototype.enterDocument = function() {
   this.initEmailElement(this.onEmailEnter_);
   // Handle a click on the submit button or cancel button.
   this.initFormElement(this.onEmailEnter_, this.onCancelClick_ || undefined);
+  this.updateSubmitButton_();
+  this.setupListenersForUpdatingSubmitButton_();
   this.setupFocus_();
   firebaseui.auth.ui.page.SignIn.base(this, 'enterDocument');
 };
@@ -100,6 +102,38 @@ firebaseui.auth.ui.page.SignIn.prototype.setupFocus_ = function() {
   this.getEmailElement().focus();
   goog.dom.selection.setCursorPosition(
       this.getEmailElement(), (this.getEmailElement().value || '').length);
+};
+
+
+/**
+ * Enables/disables the submit button based on input fields.
+ * @private
+ */
+firebaseui.auth.ui.page.SignIn.prototype.updateSubmitButton_ = function () {
+  var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+
+  var submitButton = document.querySelector(".firebaseui-id-submit");
+  
+  if (emailTextField != null && submitButton != null) {
+    if (emailTextField.value.length > 0) {
+        submitButton.removeAttribute("disabled");
+    } else {
+        submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+    
+  
+/**
+ * Sets up listeners for input fields in order to enable/disable submit button.
+ * @private
+ */
+firebaseui.auth.ui.page.SignIn.prototype.setupListenersForUpdatingSubmitButton_ = function() {
+    var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+
+    emailTextField.addEventListener("input", firebaseui.auth.ui.page.SignIn.prototype.updateSubmitButton_);
 };
 
 

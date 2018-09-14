@@ -72,6 +72,8 @@ goog.inherits(firebaseui.auth.ui.page.PasswordRecovery,
 firebaseui.auth.ui.page.PasswordRecovery.prototype.enterDocument = function() {
   this.initEmailElement();
   this.initFormElement(this.onSubmitClick_, this.onCancelClick_);
+  this.updateSubmitButton_();
+  this.setupListenersForUpdatingSubmitButton_();
   if (!firebaseui.auth.ui.element.getInputValue(this.getEmailElement())) {
     this.getEmailElement().focus();
   }
@@ -86,6 +88,38 @@ firebaseui.auth.ui.page.PasswordRecovery.prototype.disposeInternal =
   this.onSubmitClick_ = null;
   this.onCancelClick_ = null;
   firebaseui.auth.ui.page.PasswordRecovery.base(this, 'disposeInternal');
+};
+
+
+/**
+ * Enables/disables the submit button based on input fields.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordRecovery.prototype.updateSubmitButton_ = function () {
+  var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+
+  var submitButton = document.querySelector(".firebaseui-id-submit");
+  
+  if (emailTextField != null && submitButton != null) {
+    if (emailTextField.value.length > 0) {
+        submitButton.removeAttribute("disabled");
+    } else {
+        submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+      
+    
+/**
+ * Sets up listeners for input fields in order to enable/disable submit button.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordRecovery.prototype.setupListenersForUpdatingSubmitButton_ = function() {
+    var emailTextField = document.querySelector(".firebaseui-input.firebaseui-id-email");
+
+    emailTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordRecovery.prototype.updateSubmitButton_);
 };
 
 

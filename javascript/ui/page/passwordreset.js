@@ -53,6 +53,8 @@ goog.inherits(firebaseui.auth.ui.page.PasswordReset,
 firebaseui.auth.ui.page.PasswordReset.prototype.enterDocument = function() {
   this.initNewPasswordElement();
   this.initFormElement(this.onSubmitClick_);
+  this.updateSubmitButton_();
+  this.setupListenersForUpdatingSubmitButton_();
   this.submitOnEnter(this.getNewPasswordElement(), this.onSubmitClick_);
   this.getNewPasswordElement().focus();
   firebaseui.auth.ui.page.PasswordReset.base(this, 'enterDocument');
@@ -63,6 +65,38 @@ firebaseui.auth.ui.page.PasswordReset.prototype.enterDocument = function() {
 firebaseui.auth.ui.page.PasswordReset.prototype.disposeInternal = function() {
   this.onSubmitClick_ = null;
   firebaseui.auth.ui.page.PasswordReset.base(this, 'disposeInternal');
+};
+
+  
+/**
+ * Enables/disables the submit button based on input fields.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordReset.prototype.updateSubmitButton_ = function () {
+  var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-new-password");
+
+  var submitButton = document.querySelector(".firebaseui-id-submit");
+  
+  if (passwordTextField != null && submitButton != null) {
+    if (passwordTextField.value.length > 0) {
+        submitButton.removeAttribute("disabled");
+    } else {
+        submitButton.setAttribute("disabled", "disabled");
+    }
+  }
+
+  return null;
+};
+
+
+/**
+ * Sets up listeners for input fields in order to enable/disable submit button.
+ * @private
+ */
+firebaseui.auth.ui.page.PasswordReset.prototype.setupListenersForUpdatingSubmitButton_ = function() {
+    var passwordTextField = document.querySelector(".firebaseui-input.firebaseui-id-new-password");
+
+    passwordTextField.addEventListener("input", firebaseui.auth.ui.page.PasswordReset.prototype.updateSubmitButton_);
 };
 
 
