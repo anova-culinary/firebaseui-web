@@ -13,7 +13,7 @@ h1 {
 
 #firebaseui-container .firebaseui-container {
   background-color: #fff;
-  margin-top: 12px;
+  margin-top: 20px;
   border-radius: 8px;
   max-width: 360px;
   min-width: 320px;
@@ -40,6 +40,12 @@ h1 {
   #firebaseui-container .firebaseui-container {
     margin-left: 12px;
     margin-right: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .firebaseui-card-header {
+    border-bottom: none !important;
   }
 }
 
@@ -88,7 +94,7 @@ h1 {
 }
 
 #firebaseui-container .firebaseui-page-provider-sign-in .firebaseui-card-footer .firebaseui-tos {
-  margin-bottom: 11px;
+  margin-bottom: 17px;
 }
 
 #firebaseui-container .firebaseui-input,
@@ -398,19 +404,12 @@ input:-webkit-autofill {
   object-fit: contain;
 }
 
-/* #firebaseui-container .anova-checkbox #privacy-policy,
-#firebaseui-container .anova-checkbox #terms-of-service {
-  width: 30px;
-  height: 30px;
-  background-image: url(/ali/firebaseui/assets/checkbox-unchecked.svg);
-}
-
-#firebaseui-container .anova-checkbox #privacy-policy:checked,
-#firebaseui-container .anova-checkbox #terms-of-service:checked {
-  background-image: url(/ali/firebaseui/assets/checkbox-checked.svg)
-} */
 .anova-checkbox-wrapper {
   margin-bottom: 14px;
+}
+
+.anova-checkbox-wrapper + .anova-checkbox-wrapper {
+  margin-bottom: 45px;
 }
 
 .anova-checkbox-wrapper input[type=checkbox] {
