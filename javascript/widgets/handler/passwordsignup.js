@@ -61,7 +61,8 @@ firebaseui.auth.widget.handler.handlePasswordSignUp = function(
       function() {
         firebaseui.auth.widget.handler.onSignUpSubmit_(app, component, opt_userExistsInCognitoShowSignIn);
         firebaseui.auth.widget.handler.common.trackWithPlatform("AccountSubmitted", {
-          type: "sign up"
+          type: "sign up",
+          gdpr: opt_displayGDPRTosPpMessage
         })
       },
       // On cancel.
