@@ -1505,7 +1505,7 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
     // CUSTOM ANOVA CODE
     checkCognitoUserByEmail()
       .then(function(userExistsInCognito) {
-        firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationStarted", {
+        AnalyticsClient.trackWithPlatform("CognitoFirebaseMigrationStarted", {
           email: email
         })
         firebaseui.auth.widget.handler.handle(
@@ -1518,7 +1518,7 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
           opt_displayFullTosPpMessage,
           userExistsInCognito);
 
-        firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+        AnalyticsClient.trackWithPlatform("EmailSubmitted", {
           type: "sign up"
         });
 
@@ -1541,7 +1541,7 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
         email,
         opt_displayFullTosPpMessage);
 
-    firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+    AnalyticsClient.trackWithPlatform("EmailSubmitted", {
       type: "log in"
     })
   } else {
@@ -1561,7 +1561,7 @@ firebaseui.auth.widget.handler.common.handleSignInFetchSignInMethodsForEmail =
         signInMethods[0],
         opt_infoBarMessage);
 
-    firebaseui.auth.widget.handler.common.trackWithPlatform("EmailSubmitted", {
+    AnalyticsClient.trackWithPlatform("EmailSubmitted", {
       type: "log in federated"
     })
   }
@@ -1671,28 +1671,5 @@ firebaseui.auth.widget.handler.common.handleSignInWithEmail =
           }
         }, false);
   }
-};
-
-firebaseui.auth.widget.handler.common.trackWithPlatform = function (eventName, parameters) {
-  parameters.platform = firebaseui.auth.widget.handler.common.getClientDevicePlatform()
-  analytics.track(eventName, parameters)
-};
-
-firebaseui.auth.widget.handler.common.getClientDevicePlatform = function() {
-  var userAgent = navigator.userAgent || navigator.vendor || window.opera
-      
-  if (/windows phone/i.test(userAgent)) {
-    return "Windows Phone"
-  }
-
-  if (/android/i.test(userAgent)) {
-    return "Android"
-  }
-
-  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-    return "iOS"
-  }
-
-  return "Web"
 };
 

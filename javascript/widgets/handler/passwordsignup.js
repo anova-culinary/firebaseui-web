@@ -60,7 +60,7 @@ firebaseui.auth.widget.handler.handlePasswordSignUp = function(
       // On submit.
       function() {
         firebaseui.auth.widget.handler.onSignUpSubmit_(app, component, opt_userExistsInCognitoShowSignIn);
-        firebaseui.auth.widget.handler.common.trackWithPlatform("AccountSubmitted", {
+        AnalyticsClient.trackWithPlatform("AccountSubmitted", {
           type: "sign up",
           gdpr: opt_displayGDPRTosPpMessage
         })
@@ -140,7 +140,7 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
 
         // CUSTOM ANOVA CODE
         if (userExistsInCognitoShowSignIn) {
-          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationSucceeded", {
+          AnalyticsClient.trackWithPlatform("CognitoFirebaseMigrationSucceeded", {
             email: email
           })
         }
@@ -169,7 +169,7 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
 
         // CUSTOM ANOVA CODE
         if(userExistsInCognitoShowSignIn) {
-          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationFailed", {
+          AnalyticsClient.trackWithPlatform("CognitoFirebaseMigrationFailed", {
             errorStatus: error['code'],
             errorMessage: errorMessage
           })
@@ -223,7 +223,7 @@ firebaseui.auth.widget.handler.onSignUpSubmit_ = function(app, component, opt_us
           console.log(`logged in to cognito with ${email}!`)
           createUserInFirebase(email, password, opt_userExistsInCognitoShowSignIn)
         } else {
-          firebaseui.auth.widget.handler.common.trackWithPlatform("CognitoFirebaseMigrationFailed", {
+          AnalyticsClient.trackWithPlatform("CognitoFirebaseMigrationFailed", {
             errorStatus: xmlhttp.status,
             errorMessage: "The email and password you entered don't match"
           })

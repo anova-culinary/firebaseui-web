@@ -54,7 +54,7 @@ firebaseui.auth.widget.handler.handlePasswordReset = function(
           .verifyPasswordResetCode(actionCode)
           .then(
               function(email) {
-                firebaseui.auth.widget.handler.common.trackWithPlatform("PasswordResetLinkOpened", {
+                AnalyticsClient.trackWithPlatform("PasswordResetLinkOpened", {
                   email: email
                 });
                 // Show reset password UI.
@@ -63,7 +63,7 @@ firebaseui.auth.widget.handler.handlePasswordReset = function(
                       firebaseui.auth.widget.handler.resetPassword_(
                           app, container, component, actionCode, email,
                           opt_onContinueClick);
-                      firebaseui.auth.widget.handler.common.trackWithPlatform("PasswordResetPasswordSubmitted", {
+                      AnalyticsClient.trackWithPlatform("PasswordResetPasswordSubmitted", {
                           email: email
                       });
                     });
@@ -108,7 +108,7 @@ firebaseui.auth.widget.handler.resetPassword_ = function(
         // Set current UI component.
         app.setCurrentComponent(component);
 
-        firebaseui.auth.widget.handler.common.trackWithPlatform("PasswordResetSucceeded", {
+        AnalyticsClient.trackWithPlatform("PasswordResetSucceeded", {
             email: email
         });
       },

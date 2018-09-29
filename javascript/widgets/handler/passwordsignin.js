@@ -42,7 +42,7 @@ firebaseui.auth.widget.handler.handlePasswordSignIn = function(
       // On submit.
       function() {
         firebaseui.auth.widget.handler.common.verifyPassword(app, component);
-        firebaseui.auth.widget.handler.common.trackWithPlatform("AccountSubmitted", {
+        AnalyticsClient.trackWithPlatform("AccountSubmitted", {
           type: "log in"
         })
       },
