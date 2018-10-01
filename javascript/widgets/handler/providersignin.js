@@ -103,7 +103,7 @@ firebaseui.auth.widget.handler.trackAuthProviderSelected_ = function(providerId)
     default:
   }
 
-  firebaseui.auth.widget.handler.common.trackWithPlatform("AuthProviderSelected", {
+  AnalyticsClient.trackWithPlatform("AuthProviderSelected", {
     provider: providerName
   })
 };

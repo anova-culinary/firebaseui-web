@@ -104,7 +104,7 @@ firebaseui.auth.widget.handler.onPasswordRecoverySubmit_ =
     // Set current UI component.
     app.setCurrentComponent(noticeComponent);
     
-    firebaseui.auth.widget.handler.common.trackWithPlatform("PasswordResetEmailSubmitted", {
+    AnalyticsClient.trackWithPlatform("PasswordResetEmailSubmitted", {
       email: email
     })
   };
